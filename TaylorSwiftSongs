@@ -1,0 +1,58 @@
+-- Create database about songs that were written by Taylor Swift for someone famous
+
+CREATE TABLE ts_songs (song_id INTEGER PRIMARY KEY AUTOINCREMENT, song TEXT, album TEXT, target TEXT);
+
+INSERT INTO ts_songs (song, album, target) VALUES ("Ours", "Speak Now", "John Mayer");
+INSERT INTO ts_songs (song, album, target) VALUES ("Would've Could've Should've", "Midnights", "John Mayer");
+INSERT INTO ts_songs (song, album, target) VALUES ("Dear John", "Speak Now", "John Mayer");
+INSERT INTO ts_songs (song, album, target) VALUES ("Superman", "Speak Now", "John Mayer");
+INSERT INTO ts_songs (song, album, target) VALUES ("All Too Well", "Red", "Jake Gylenhall");
+INSERT INTO ts_songs (song, album, target) VALUES ("Style", "1989", "Harry Styles");
+INSERT INTO ts_songs (song, album, target) VALUES ("Out of the Woods", "1989", "Harry Styles");
+INSERT INTO ts_songs (song, album, target) VALUES ("I Knew You Were Trouble", "Red", "Harry Styles");
+INSERT INTO ts_songs (song, album, target) VALUES ("We Are Never Ever Getting Back Together", "Red", "Harry Styles");
+INSERT INTO ts_songs (song, album, target) VALUES ("Better than Revenge", "Speak Now", "Joe Jonas");
+INSERT INTO ts_songs (song, album, target) VALUES ("Holy Ground", "Red", "Joe Jonas");
+INSERT INTO ts_songs (song, album, target) VALUES ("Mine", "Speak Now", "Cory Monteith");
+INSERT INTO ts_songs (song, album, target) VALUES ("Innocent", "Speak Now", "Kanye West");
+INSERT INTO ts_songs (song, album, target) VALUES ("Begin Again", "Red", "Conor Kennedy");
+INSERT INTO ts_songs (song, album, target) VALUES ("Blank Space", "1989", NULL);
+INSERT INTO ts_songs (song, album, target) VALUES ("Gorgeous", "Reputation", "Joe Alwyn");
+INSERT INTO ts_songs (song, album, target) VALUES ("Lover", "Lover", "Joe Alwyn");
+INSERT INTO ts_songs (song, album, target) VALUES ("Cornelia St", "Lover", "Joe Alwyn");
+INSERT INTO ts_songs (song, album, target) VALUES ("Invisible Strings", "Folklore", "Joe Alwyn");
+INSERT INTO ts_songs (song, album, target) VALUES ("Lavender Haze", "Midnight", "Joe Alwyn");
+INSERT INTO ts_songs (song, album, target) VALUES ("Mastermind","Midnight", "Joe Alwyn");
+INSERT INTO ts_songs (song, album, target) VALUES ("Bad Blood", "Reputation", "Katy Perry");
+
+-- Create database about songs that were written by Taylor Swift about her exes
+
+CREATE TABLE songs_exes (id INTEGER PRIMARY KEY AUTOINCREMENT, song TEXT, ex TEXT);
+INSERT INTO songs_exes (song, ex) VALUES ("Ours", "John Mayer");
+INSERT INTO songs_exes (song, ex) VALUES ("Would've Could've Should've", "John Mayer");
+INSERT INTO songs_exes (song, ex) VALUES ("Dear John", "John Mayer");
+INSERT INTO songs_exes (song, ex) VALUES ("Superman", "John Mayer");
+INSERT INTO songs_exes (song, ex) VALUES ("Better than Revenge", "Joe Jonas");
+INSERT INTO songs_exes (song, ex) VALUES ("Mine", "Cory Monteith");
+INSERT INTO songs_exes (song, ex) VALUES( "The Story of Us", "John Mayer");
+INSERT INTO songs_exes (song, ex) VALUES ("Back to December", "Taylor Lautner");
+INSERT INTO songs_exes (song, ex) VALUES ("We Are Never Ever Getting Back Together", "Jake Gylenhall");
+INSERT INTO songs_exes (song, ex) VALUES ("All Too Well", "Jake Gylenhall");
+INSERT INTO songs_exes (song, ex) VALUES ("Style", "Harry Styles");
+INSERT INTO songs_exes (song, ex) VALUES ("Out of the Woods", "Harry Styles");
+INSERT INTO songs_exes (song, ex) VALUES ("I KNew You Were Trouble", "Jake Gylenhall");
+INSERT INTO songs_exes (song, ex) VALUES ("Bad Blood", "Katy Perry");
+INSERT INTO songs_exes (song, ex) VALUES ("Ours", "John Mayer");
+INSERT INTO songs_exes (song, ex) VALUES ("Gorgeous", "Joe Alwyn");
+INSERT INTO songs_exes (song, ex) VALUES ("Lover", "Joe Alwyn");
+INSERT INTO songs_exes (song, ex) VALUES ("Cornelia St", "Joe Alwyn");
+INSERT INTO songs_exes (song, ex) VALUES ("Invisible Strings", "Joe Alwyn");
+INSERT INTO songs_exes (song, ex) VALUES ("Lavender Haze", "Joe Alwyn");
+INSERT INTO songs_exes (song, ex) VALUES ("Mastermind", "Joe Alwyn");
+INSERT INTO songs_exes (song, ex) VALUES ("Innocent", "Kanye West");
+INSERT INTO songs_exes (song, ex) VALUES ("Begin Again", "Joe Jonas");
+INSERT INTO songs_exes (song,ex) VALUES ("I Knew You Were Trouble", "Harry Styles");
+INSERT INTO songs_exes (song,ex) VALUES ("Holy Ground", "Joe Jonas");
+
+-- Cross database from two databases and order by ex name
+SELECT ts_songs.song, songs_exes.ex FROM ts_songs LEFT OUTER JOIN songs_exes ON ts_songs.song = songs_exes.song ORDER BY ex;
