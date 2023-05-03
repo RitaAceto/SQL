@@ -1,0 +1,62 @@
+-- create a table to record a store database
+
+CREATE TABLE record_store (id INTEGER PRIMARY KEY AUTOINCREMENT, Artist TEXT, Album TEXT, Label TEXT, Format TEXT, Release_Year INTEGER);
+
+INSERT INTO record_store VALUES (1, 'Sufjan Stevens', 'Illinois', 'Asthmatic Kitty Records', '2xLP', 2005);
+INSERT INTO record_store VALUES (2, 'Led Zeppelin', 'Led Zeppelin II', 'Atlantic', 'LP', 2014);
+INSERT INTO record_store VALUES (3, 'Alabama Shakes', 'Boys & Girls', 'ATO Records', 'LP', 2012);
+INSERT INTO record_store VALUES  (4, 'John Mayer', 'Room For Squares', 'Columbia', 'CD', 2001);
+INSERT INTO record_store VALUES (5, 'John Mayer', 'Continuum', 'Columbia', 'CD', 2006);
+INSERT INTO record_store VALUES (6, 'John Mayer', 'Continuum', 'Columbia', '2xLP', 2008);
+INSERT INTO record_store VALUES (8, 'Sam Smith', 'I Feel Love', 'Capitol Records', '12 in', 2020);
+INSERT INTO record_store VALUES (9, 'John Mayer Trio', 'Try', 'Columbia', 'CD', 2005);
+INSERT INTO record_store VALUES (10, 'John Mayer', 'Born And Raised', 'Columbia', '2xLP', 2012);
+INSERT INTO record_store VALUES (11, 'John Mayer', 'Where The Light Is', 'Columbia', '2xCD', 2008);
+INSERT INTO record_store VALUES (12, 'John Mayer', 'Battle Studies', 'Columbia', 'CD', 2009);
+INSERT INTO record_store VALUES (13, 'Mariah Carey', 'All I Want For Christmas Is You', 'Columbia', 'EP', 2015);
+INSERT INTO record_store VALUES (14, 'John Mayer', 'The Search For Everything', 'Columbia', '2xLP', 2017);
+INSERT INTO record_store VALUES (15, 'Pink Floyd', 'Wish You Were Here', 'Columbia', 'LP', 0);
+INSERT INTO record_store VALUES (16, 'Bruce Springsteen', 'Born To Run', 'Columbia', 'LP', 1979);
+INSERT INTO record_store VALUES (17, 'John Mayer', 'Paradise Valley', 'Columbia, Columbia', 'LP', 2013);
+INSERT INTO record_store VALUES (18, 'John Mayer', 'Heavier Things', 'Columbia', 'LP', 2015);
+INSERT INTO record_store VALUES (19, 'John Mayer', 'The Search For Everything', 'Columbia', 'CD', 2017);
+INSERT INTO record_store VALUES (20, 'Queen', 'The Game', 'Elektra', 'LP', 1980);
+INSERT INTO record_store VALUES (21, 'Michael Jackson', 'Thriller', 'Epic', 'LP', 1982);
+INSERT INTO record_store VALUES (22, 'Queen', 'A Night At The Opera ', 'Hollywood Records', 'LP', 2018);
+INSERT INTO record_store VALUES (23, 'Queen', 'Greatest Hits II', 'Hollywood Records', '2xLP', 2017);
+INSERT INTO record_store VALUES (24, 'Queen', 'Greatest Hits', 'Hollywood Records', '2xLP', 2018);
+INSERT INTO record_store VALUES (25, 'Maroon 5', 'Songs About Jane', 'Interscope Records', 'LP', 2016);
+INSERT INTO record_store VALUES (26, 'U2', 'Songs Of Experience', 'Island Records', '2xLP', 2017);
+INSERT INTO record_store VALUES (27, 'U2', 'Lights Of Home', 'Island Records', '12 in', '2018');
+INSERT INTO record_store VALUES (28, 'U2', 'The Unforgettable Fire', 'Island Records', 'CD', 0);
+INSERT INTO record_store VALUES (29, 'U2', 'Achtung Baby', 'Island Records', 'LP', 1991);
+INSERT INTO record_store VALUES (30, 'U2', 'Wide Awake In America', 'Island Records', '12 in', 1986);
+INSERT INTO record_store VALUES (31, 'U2', 'Boy', 'Island Records', 'LP', 1986);
+INSERT INTO record_store VALUES (32, 'U2', 'October', 'Island Records', 'LP', 1987);
+INSERT INTO record_store VALUES (33, 'U2', 'How To Dismantle An Atomic Bomb', 'Island Records', 'LP', 2004);
+INSERT INTO record_store VALUES (34, 'U2', 'Rattle And Hum', 'Island Records', '2xLP', 1990);
+INSERT INTO record_store VALUES (35, 'U2', 'All That You Cant Leave Behind', 'Island Records', 'LP', 2018);
+INSERT INTO record_store VALUES (36, 'U2', 'The Best Of 1990-2000', 'Island Records', '2xLP', 2018);
+INSERT INTO record_store VALUES (37, 'John Mayer Trio', 'Try', 'Columbia', '2xLP', 2011);
+INSERT INTO record_store VALUES (38, 'Taylor Swift', 'Fearless Taylors Version', 'Republic Records', '3xLP', 2021);
+INSERT INTO record_store VALUES (39, 'Taylor Swift', 'Red Taylors Version', 'Republic Records', '4xLP', 2021);
+INSERT INTO record_store VALUES (40, 'John Mayer', 'Battle Studies', 'Columbia', '2xLP', 2017);
+
+-- display the total artist count 
+SELECT COUNT(artist) AS Total_Artists FROM record_store;
+
+-- display database by label
+SELECT * FROM record_store ORDER BY label;
+
+-- update label on unique id
+UPDATE record_store SET Label = 'Columbia' WHERE id= 17;
+SELECT * FROM record_store;
+
+-- display database by label
+SELECT * FROM record_store ORDER BY label;
+
+-- display artist list in alphabetic order
+SELECT artist FROM record_store GROUP BY artist ORDER BY artist ASC;
+
+-- alter table name to mirror the file name
+ALTER TABLE record_store RENAME TO Records_Database;
