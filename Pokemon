@@ -1,3 +1,5 @@
+-- create a pokemon database
+
 CREATE TABLE pokemon(
   Number     INTEGER,
   Name       TEXT PRIMARY KEY,
@@ -814,16 +816,16 @@ INSERT INTO pokemon(Number,Name,Type_1,Type_2,Total,HP,Attack,Defense,Sp_Atk,Sp_
 INSERT INTO pokemon(Number,Name,Type_1,Type_2,Total,HP,Attack,Defense,Sp_Atk,Sp_Def,Speed,Generation,Legendary) VALUES (720,'HoopaHoopa Unbound','Psychic','Dark',680,80,160,60,170,130,80,6,'True');
 INSERT INTO pokemon(Number,Name,Type_1,Type_2,Total,HP,Attack,Defense,Sp_Atk,Sp_Def,Speed,Generation,Legendary) VALUES (721,'Volcanion','Fire','Water',600,80,110,120,130,90,70,6,'True');
 
-/*Find the Average, Max and Min Speeds*/
+-- Find the Average, Max and Min Speeds
 SELECT AVG(Speed) FROM pokemon;
 SELECT MAX(Speed) FROM pokemon;
 SELECT MIN(Speed) FROM pokemon;
 
-/*Find the Pokemons that have 2 types*/
+-- Find the Pokemons that have 2 types
 SELECT * FROM pokemon GROUP BY HP HAVING HP > 25 AND HP IS NOT NULL AND Type_1 IS NOT NULL AND Type_2 IS NOT NULL ORDER BY Number ASC;
 
-/*Find the Top 10 Pokemons that have 2 types*/
+-- Find the Top 10 Pokemons that have 2 types
 SELECT DISTINCT Number, Name FROM pokemon WHERE Type_2 IS NOT NULL ORDER BY Number LIMIT 10;
 
-/*Find the Top 10 Pokemons that have 2 types and are high speed*/
+-- Find the Top 10 Pokemons that have 2 types and are high speed
 SELECT DISTINCT Number, Name FROM pokemon WHERE Type_2 IS NOT NULL OR Speed > 200 ORDER BY Number LIMIT 15;
