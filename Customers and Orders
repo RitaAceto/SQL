@@ -1,14 +1,13 @@
-SELECT * FROM BIT_DB.customers LIMIT 20;
-SELECT * FROM BIT_DB.JanSales LIMIT 10;
-SELECT * FROM BIT_DB.customers WHERE length(order_id) = 6
+-- First, let's fix messy/incorrect data: 
+SELECT * 
+FROM BIT_DB.customers 
+WHERE length(order_id) = 6
 AND order_id <> 'Order ID';
-SELECT * FROM BIT_DB.customers WHERE length(ORDER_ID) = 6;
-SELECT * FROM BIT_DB.customers WHERE length(ORDER_ID) IS NOT NULL AND order_id <> ' '; 
 
--- How many orders were placed in January
-SELECT * FROM BIT_DB.JanSales
-WHERE length(orderid) = 6
-AND orderid <> ' ';
+-- How many orders were placed in January?
+SELECT * FROM BIT_DB.customers, BIT_DB.JanSales
+WHERE length(orderID) = 6
+AND order_id <> 'Order ID' LIMIT 10;
 
 -- How many of those orders were for an iPhone?
 SELECT * FROM BIT_DB.JanSales
@@ -24,27 +23,35 @@ ON cust.order_id=FEB.orderid
 WHERE length(orderid) = 6
 AND orderid <> 'Order ID';
 
--- Which product was the cheapest one sold in January, and what was the price?;
+-- Which product was the cheapest one sold in January, and what was the price?
+SELECT MIN(price) FROM BIT_DB.JanSales;
+
 SELECT DISTINCT Product, price
 FROM BIT_DB.JanSales
-WHERE price in (SELECT min(price)FROM BIT_DB.JanSales);
+WHERE price IN (SELECT MIN(price) FROM BIT_DB.JanSales)
+AND length(orderid) = 6
+AND orderid <> 'Order ID';
 
 SELECT product, price
 FROM BIT_DB.JanSales
 ORDER BY price ASC LIMIT 1;
 
 -- What is the total revenue for each product sold in January? 
--- (Revenue can be calculated using the number of products sold and the price of the products).
-SELECT orderid, quantity, price, product
-FROM BIT_DB.JanSales;
-
-SELECT SUM(quantity), price, product
+SELECT 
+SUM(price*Quantity) AS Total_Revenue, Product
 FROM BIT_DB.JanSales
-GROUP BY product, price;
+WHERE length(orderid) = 6
+AND orderid <> 'Order ID'
+GROUP BY Product;
 
-SELECT SUM(quantity)*price AS Revenue, product
+OR 
+
+SELECT
+(SUM(Quantity)*price) AS Total_Revenue, Product
 FROM BIT_DB.JanSales
-GROUP BY product;
+WHERE length(orderid) = 6
+AND orderid <> 'Order ID'
+GROUP BY PRODUCT;
 
 -- Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
 select 
