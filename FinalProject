@@ -66,10 +66,65 @@ Where InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
 
 
 -- What are the total sales for 2009?
+Select SUM(Total)
+From chinook.invoices
+Where invoices.InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31'
+
+OR 
+
+Select ROUND (SUM(Total))
+From chinook.invoices
+Where invoices.InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31'
 
 
-Write a query that includes the purchased track name with each invoice line ID.
-Write a query that includes the purchased track name AND artist name with each invoice line ID.
-Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
-Show the total sales made by each sales agent.
-Which sales agent made the most dollars in sales in 2009?
+-- Write a query that includes the purchased track name with each invoice line ID.
+Select tracks.Name, invoice_items.InvoiceLineId
+From chinook.tracks
+Join chinook.invoice_items
+On invoice_items.TrackId = tracks.TrackId;
+
+
+-- Write a query that includes the purchased track name AND artist name with each invoice line ID.
+Select artists.Name, tracks.Name, invoice_items.InvoiceLineId 
+From chinook.invoice_items
+Left Join chinook.tracks
+On invoice_items.TrackId = tracks.TrackId
+Inner Join chinook.albums
+On albums.AlbumId = tracks.AlbumId
+Left Join chinook.artists
+On artists.ArtistId = albums.ArtistId;
+
+-- Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+Select albums.Title as 'Title', tracks.Name as 'Track Name', genres.Name as 'Genre', media_types.Name as 'Media_type'
+From chinook.albums
+Left Join chinook.tracks
+On albums.AlbumId = tracks.AlbumId
+Left Join chinook.genres
+On tracks.GenreId = genres.GenreId
+Left Join chinook.media_types
+On tracks.MediaTypeId = media_types.MediaTypeId;
+
+
+-- Show the total sales made by each sales agent.
+Select employees.FirstName, employees.LastName,
+ROUND (SUM(invoices.Total), 2) as 'Total Sales'
+From chinook.employees
+Join chinook.customers
+On employees.EmployeeId = customers.SupportRepId
+Join chinook.invoices
+On customers.CustomerId = invoices.CustomerId
+WHERE employees.Title LIKE 'Sales Support Agent'
+GROUP BY employees.FirstName;
+
+-- Which sales agent made the most dollars in sales in 2009?
+Select employees.FirstName, employees.LastName,
+ROUND (SUM(invoices.Total), 2) as 'Most Dollar Sales'
+From chinook.employees
+Join chinook.customers
+On employees.EmployeeId = customers.SupportRepId
+Join chinook.invoices
+On customers.CustomerId = invoices.CustomerId
+WHERE employees.Title LIKE 'Sales Support Agent'
+AND invoices.InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31'
+GROUP BY employees.FirstName 
+ORDER BY ROUND (SUM(invoices.Total), 2) DESC;
