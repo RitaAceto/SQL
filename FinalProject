@@ -128,3 +128,41 @@ WHERE employees.Title LIKE 'Sales Support Agent'
 AND invoices.InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31'
 GROUP BY employees.FirstName 
 ORDER BY ROUND (SUM(invoices.Total), 2) DESC;
+
+-- Find the total number of invoices for each customer along with the customer's full name, city and email.
+SELECT invoices.InvoiceId, customers.FirstName, customers.LastName, customers.City, customers.Email
+From chinook.customers
+Join chinook.invoices
+On invoices.CustomerId = customers.CustomerId
+Order by invoices.InvoiceId;
+
+-- Retrieve the track name, album, artistID, and trackID for all the albums.
+Select tracks.Name, A.Name AS Artist, albums.Title AS Album, tracks.TrackId
+From ((tracks Inner Join albums 
+On tracks.AlbumId = albums.AlbumId)
+Inner Join artists A
+On A.ArtistId = albums.ArtistId);
+
+-- Retrieve a list with the managers last name, and the last name of the employees who report to him or her
+Select M.LastName AS Manager, E.LastName AS Employee
+From chinook.employees E
+Inner Join chinook.employees M
+On E.ReportsTo = M.EmployeeId;
+
+-- Find the name and ID of the artists who do not have albums
+Select artists.name, artists.ArtistId, albums.Title
+From chinook.artists
+Left Join chinook.albums
+On artists.ArtistId = albums.ArtistId
+Where albums.ArtistId IS NULL;
+
+-- See if there are any customers who have a different city listed in their billing city versus their customer city
+Select customers.FirstName, customers.LastName, customers.City, invoices.BillingCity
+From chinook.customers
+Inner Join chinook.invoices
+On customers.CustomerId = invoices.CustomerId
+Where customers.City <> invoices.BillingCity;
+
+
+
+
