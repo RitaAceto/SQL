@@ -1,0 +1,28 @@
+SELECT 
+        a.ID, 
+        a.Name, 
+        b.DivisionName AS DivisionName,
+        c.Name AS ManagerName,
+        a.Salary 
+FROM maintable_LIQ41
+JOIN cb_companydivisions AS b
+ON b.id = a.DivisionID
+JOIN 
+(
+        SELECT ID, Name, 
+        FROM maintable_LIQ41
+) AS c 
+ON c.ID = a.ManagerID
+WHERE 
+Salary = (
+                  SELECT 
+                        MIN(Salary) 
+                  FROM (
+                            SELECT  
+                                        * 
+                            FROM 
+                                        maintable_LIQ41
+                            ORDER BY salary DESC 
+                            LIMIT 3
+                       ) AS d
+               )
